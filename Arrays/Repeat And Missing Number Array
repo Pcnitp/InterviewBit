@@ -1,0 +1,22 @@
+public class Solution {
+    // DO NOT MODIFY THE LIST. IT IS READ ONLY
+    public ArrayList<Integer> repeatedNumber(final List<Integer> A) {
+        int n=A.size();
+        long sum=0,sum1=0;
+        for(int i=0;i<n;i++){
+            sum+=A.get(i)-i-1;
+            sum1+=(long)A.get(i)*(long)A.get(i) - (long)(i+1)*(long)(i+1);   
+        }
+            
+        long x=sum; //a-b 
+        long y=sum1; //a^2 - b^2
+        long z=y/x; //a+b
+        
+        int a=(int)((z+x)/2);
+        int b=(int)((z-x)/2);
+        ArrayList<Integer> ans=new ArrayList<>();
+        ans.add(a);
+        ans.add(b);
+        return ans;
+    }
+}
