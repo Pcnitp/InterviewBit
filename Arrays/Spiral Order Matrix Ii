@@ -1,0 +1,33 @@
+public class Solution {
+    public ArrayList<ArrayList<Integer>> generateMatrix(int n) {
+        int[][] a=new int[n][n];
+        int x=0;
+        for(int k=0;k<(int)Math.ceil(n/2);k++){
+            for(int i=k;i<n-k-1;i++)
+                a[k][i]=++x;
+            
+            for(int i=k;i<n-k-1;i++)
+                a[i][n-k-1]=++x;
+            
+            for(int i=n-k-1;i>k;i--)
+                a[n-k-1][i]=++x;
+            
+            for(int i=n-k-1;i>k;i--)
+                a[i][k]=++x;
+            
+           
+        }
+        
+        if(n%2!=0) a[n/2][n/2]=n*n;
+        
+        ArrayList<ArrayList<Integer>> ar=new ArrayList<>();
+        for(int i=0;i<n;i++){
+            ArrayList<Integer> b=new ArrayList<>();
+            for(int j=0;j<n;j++)
+                b.add(a[i][j]);
+            ar.add(b);
+        }
+        return ar;
+    }
+    
+}
