@@ -1,0 +1,19 @@
+public class Solution {
+    public int solve(ArrayList<Integer> a) {
+        int n=a.size();
+        Collections.sort(a);
+        
+        for(int i=1;i<n;i++){
+            if(a.get(i)==a.get(i-1)){
+                a.remove(i);
+                i--;
+                n--;
+            }
+        }
+        System.out.println(a);
+        n=a.size();
+        for(int i=0;i<n;i++)
+            if(a.get(i)==n-i-1) return 1;
+        return -1;
+    }
+}
