@@ -1,0 +1,11 @@
+public class Solution {
+    // DO NOT MODIFY THE LIST. IT IS READ ONLY
+    public int maximumGap(final List<Integer> a) {
+        Collections.sort(a);
+        int max=0;
+        int n=a.size();
+        for(int i=1;i<n;i++)
+            max=Math.max(max, a.get(i)-a.get(i-1));
+        return max;
+    }
+}
