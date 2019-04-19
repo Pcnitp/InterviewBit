@@ -1,0 +1,27 @@
+public class Solution {
+    // DO NOT MODIFY THE LIST. IT IS READ ONLY
+    public class Xyz implements Comparator<Integer>{
+        public int compare(Integer a, Integer b){
+            String x=Integer.toString(a);
+            String y=Integer.toString(b);
+            long n=Long.parseLong(x+y);
+            long m=Long.parseLong(y+x);
+            
+            if(n>m) return -1;
+            else return 1;
+            
+        }
+    }
+    public String largestNumber(final List<Integer> a) {
+        int n=a.size();
+        Collections.sort(a, new Xyz());
+        
+        if(a.get(0)==0) return "0";
+        StringBuilder ans=new StringBuilder();
+        for(int i=0;i<n;i++)
+            ans.append(Integer.toString(a.get(i)));
+            
+        
+        return ans.toString();
+    }
+}
