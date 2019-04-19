@@ -1,0 +1,19 @@
+public class Solution {
+    // DO NOT MODIFY THE LIST
+    public int repeatedNumber(final List<Integer> a) {
+        int n=a.size();
+        int slow=a.get(0);
+        int fast=a.get(a.get(0));
+        while(slow!=fast){
+            slow=a.get(slow);
+            fast=a.get(a.get(fast));
+        }
+        
+        slow=0;
+        while(slow!=fast){
+            slow=a.get(slow);
+            fast=a.get(fast);
+        }
+        return slow;
+    }
+}
