@@ -1,0 +1,17 @@
+public class Solution {
+    public String convertToTitle(int n) {
+        String ans="";
+        while(n>0){
+            int x=n%26;
+            char c=(char)(x + 'A'-1);
+            if(x==0){ 
+                c='Z';
+                n-=26;
+            }
+                
+            ans=c+ans;
+            n=n/26;
+        }
+        return ans;
+    }
+}
