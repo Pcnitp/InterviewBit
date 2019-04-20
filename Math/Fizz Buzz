@@ -1,0 +1,12 @@
+public class Solution {
+    public ArrayList<String> fizzBuzz(int A) {
+        ArrayList<String> ar=new ArrayList<>();
+        for(int i=1;i<=A;i++){
+            if(i%15==0) ar.add("FizzBuzz");
+            else if(i%5==0) ar.add("Buzz");
+            else if(i%3==0) ar.add("Fizz");
+            else ar.add(Integer.toString(i));
+        }
+        return ar;
+    }
+}
