@@ -1,0 +1,17 @@
+public class Solution {
+    public int reverse(int n) {
+        String s=Integer.toString(n);
+        if(n<0) s=s.substring(1);
+        int len=s.length();
+        String r="";
+        for(int i=len-1;i>=0;i--)
+            r+=s.charAt(i);
+            
+        long m=Long.parseLong(r);
+        if(n<0) m=-m;
+        
+        if(m>Integer.MAX_VALUE || m<Integer.MIN_VALUE)
+            return 0;
+        else return (int)m;
+    }
+}
