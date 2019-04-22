@@ -1,0 +1,17 @@
+public class Solution {
+    
+    public int gcd(int a, int b){
+        if(b>a) return gcd(b,a);
+        if(b==0) return a;
+        return gcd(b, a%b);
+    }
+    
+    public int cpFact(int a, int b) {
+        int x=gcd(a,b);
+        while(x!=1){
+            a=a/x;
+            x=gcd(a,b);
+        }
+         return a;  
+    }
+}
