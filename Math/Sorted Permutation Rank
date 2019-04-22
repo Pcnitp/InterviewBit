@@ -1,0 +1,40 @@
+public class Solution {
+    public int fact(int n){
+        int m =1000003;
+        return (n<=1)? 1: (n%m * fact(n-1)%m)%m;
+    } 
+    
+    public int[] freq(String s){
+        int[] ch=new int[256];
+        int n=s.length();
+        for(int i=0;i<n;i++)
+            ch[(int)(s.charAt(i))]++;
+        
+        for(int i=1;i<256;i++)
+            ch[i]+=ch[i-1];
+        
+        return ch;
+    }
+    
+    public int findRank(String s) {
+        int n=s.length();
+        //long m=fact(n);
+        int[] ch=freq(s);
+        long rank =1;
+        //System.out.println(ch[96]+" "+ch[97]+" "+ch[98]+" "+ch[99]+" ");
+        for(int i=0;i<n;i++){
+            long m=fact(n-i-1);
+            int x=(int)(s.charAt(i))-1;
+            //System.out.println(x+" "+ch[x]+" "+m);
+            rank+=ch[x]*m;
+            //rank = rank%1000003
+            
+            while(x<256){
+                ch[x]--;
+                x++;
+            }
+            
+        }
+        return (int)(rank%1000003);
+    }
+}
