@@ -1,0 +1,22 @@
+public class Solution {
+    
+    public long helper(long n, long start, long end){
+        if(start==end) return end;
+        else if (start==end-1){
+            if(end*end<=n) return end;
+            else return start;
+        }
+        
+        long mid=start+(end-start)/2;
+        long x=mid*mid;
+        if(x==n) return mid;
+        if(x<n) return helper(n, mid, end);
+        return helper(n, start, mid-1);
+    }
+    
+    public int sqrt(int n) {
+        if (n==0|| n==1) return n;
+        long x=n, y=0;
+        return (int)helper(x,y,x);
+    }
+}
