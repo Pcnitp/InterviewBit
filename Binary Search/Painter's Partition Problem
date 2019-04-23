@@ -1,0 +1,48 @@
+public class Solution {
+    
+    int K;
+    
+    public boolean isPossible(int[] p, long time){
+        int n=p.length;
+        long temp=0;
+        int count=1;
+        for(int i=0;i<n;i++){
+            if(p[i]> time) return false;
+            temp+=p[i];
+            if(temp>time){
+                temp=p[i];
+                count++;
+            }
+        }
+        
+        if(count<=K) return true;
+        return false;
+    }
+    
+    public long search(int[] p, long s, long e){
+        if(s==e) return s;
+        long mid=s+(e-s)/2;
+        
+        if(isPossible(p,mid)) return search(p,s,mid);
+        else return search(p,mid+1,e);
+    }
+    
+    public int paint(int k, int t, int[] p) {
+        int n=p.length;
+        long m=10000003;
+        K=k;
+        if(n<=k){
+            int max=p[0];
+            for(int i=1;i<n;i++)
+                max=Math.max(p[i],max);
+             return  (int)((max%m * t%m)%m);
+        }
+        long sum=0;
+        for(int i=0;i<n;i++)
+            sum+=p[i];
+        
+        long max=search(p,0,sum);    
+        
+        return  (int)((max%m * t%m)%m);
+    }
+}
