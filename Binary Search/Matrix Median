@@ -1,0 +1,40 @@
+public class Solution {
+    
+    public int search(ArrayList<ArrayList<Integer>> a, int min, int max){
+        if(min==max) return min;
+        int mid=min+(max-min)/2;
+        int n=a.size();
+        int m=a.get(0).size();
+        int desired=(n*m+1)/2;
+        int count=0;
+        
+        for(int i=0;i<n;i++){
+            int in=Collections.binarySearch(a.get(i), mid);
+            if(in<0)
+                in=Math.abs(in)-1;
+            else{
+                while(in<m && a.get(i).get(in)==mid)
+                    in++;
+            }
+            count+=in;
+        }
+        if(count<desired) return search(a,mid+1,max);
+        else if(count==desired) return mid;
+        else return search(a, min, mid);
+    }
+    
+    public int findMedian(ArrayList<ArrayList<Integer>> a) {
+        int n=a.size();
+        int m=a.get(0).size();
+        int min=Integer.MAX_VALUE;
+        int max=Integer.MIN_VALUE;
+        
+        for(int i=0;i<n;i++){
+            if(a.get(i).get(0)<min) min=a.get(i).get(0);
+            if(a.get(i).get(m-1)>max) max=a.get(i).get(m-1);
+        }
+        
+        int ans=search(a, min, max);
+        return ans;
+    }
+}
