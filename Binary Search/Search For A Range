@@ -1,0 +1,59 @@
+public class Solution {
+    // DO NOT MODIFY THE LIST
+    
+    public int left(final List<Integer> a, int s, int e, int b){
+        if(s==e) return s;
+        int mid=s+(e-s)/2;
+        int y=a.get(mid);
+        if(y==b) return left(a,s,mid,b);
+        else return left(a,mid+1,e,b);
+        
+    }
+    
+    public int right(final List<Integer> a, int s, int e, int b){
+        if(s==e) return s;
+        if(s==e-1){
+            if(a.get(e)==b) return e;
+            return s;
+        }
+        int mid=s+(e-s)/2;
+        int y=a.get(mid);
+        if(y==b) return right(a,mid,e,b);
+        else return right(a,s,mid-1,b);
+        
+    }
+    
+    public ArrayList<Integer> search(final List<Integer> a, int s, int e, int b){
+        if(s>e){
+            ArrayList<Integer> x=new ArrayList<Integer>();
+            x.add(-1);
+            x.add(-1);
+            return x;
+        }
+        
+        if(a.get(s)==b && a.get(e)==b){
+            ArrayList<Integer> x=new ArrayList<Integer>();
+            x.add(s);
+            x.add(e);
+            return x;
+        }
+        
+        int mid=s+(e-s)/2;
+        int y=a.get(mid);
+        if(y>b) return search(a,s,mid-1,b);
+        else if(y<b) return search(a,mid+1,e,b);
+        
+        int l=left(a,s,mid,b);
+        int r=right(a,mid,e,b);
+        
+        ArrayList<Integer> x=new ArrayList<Integer>();
+        x.add(l);
+        x.add(r);
+        return x;
+    }
+    
+    public ArrayList<Integer> searchRange(final List<Integer> a, int b) {
+        int n=a.size();
+        return search(a,0,n-1,b);
+    }
+}
