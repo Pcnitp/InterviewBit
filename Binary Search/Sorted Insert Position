@@ -1,0 +1,24 @@
+public class Solution {
+    
+    public int search(ArrayList<Integer> a, int start, int end, int key){
+        if(start== end){
+            if(key<=a.get(end)) return end;
+            else return end+1;
+        }
+        if(start==end-1){
+            if(key<=a.get(start)) return start;
+            if(key>a.get(start)&& key<=a.get(end)) return end;
+            else return end+1;
+        }
+        int mid=start+(end-start)/2;
+        if(a.get(mid)==key) return mid;
+        if(a.get(mid)>key) return search(a,mid,end, key);
+        else return search(a, start, mid, key);
+    }
+    
+    public int searchInsert(ArrayList<Integer> a, int b) {
+        if(b<a.get(0)) return 0;
+        if(b>a.get(a.size()-1)) return a.size();
+        return search(a,0,a.size()-1,b);
+    }
+}
