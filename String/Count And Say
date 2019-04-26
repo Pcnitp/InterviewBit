@@ -1,0 +1,20 @@
+public class Solution {
+    public String countAndSay(int n) {
+        String p="1";
+        while(n>1){
+            n--;
+            String q="";
+            int i=0;
+            int m=p.length();
+            while(i<m){
+                int start=i;
+                i++;
+                while(i<m && p.charAt(i)==p.charAt(start))
+                    i++;
+                q+=Integer.toString(i-start)+p.charAt(start);
+            }
+            p=q;
+        }
+        return p;
+    }
+}
