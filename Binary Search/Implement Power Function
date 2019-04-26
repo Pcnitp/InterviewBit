@@ -1,0 +1,14 @@
+public class Solution {
+    
+    public long help(long x, long n, long d) {
+        if(x==0) return 0;
+        if(n==0) return 1;
+        if(n%2==0) return help((x*x)%d,n/2,d)%d;
+        return ((x%d)*help((x*x)%d,(n-1)/2,d)%d)%d;
+    }
+    
+    public int pow(int x, int n, int d) {
+        x=x%d;
+        return (int)help((long)x,(long)n,(long)d);
+    }
+}
