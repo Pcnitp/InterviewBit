@@ -1,0 +1,27 @@
+public class Solution {
+    public int val(char c){
+        if(c=='I') return 1;
+        if(c=='V') return 5;
+        if(c=='X') return 10;
+        if(c=='L') return 50;
+        if(c=='C') return 100;
+        if(c=='D') return 500;
+        else return 1000;
+    }
+    
+    public int romanToInt(String a) {
+        int n=a.length();
+        int ans=val(a.charAt(0));
+        int prev=ans;
+        for(int i=1;i<n;i++){
+            int x=val(a.charAt(i));
+            if(x<=prev){
+                ans+=x;
+                prev=x;
+            }
+            else
+                ans+=x-2*prev;
+        }
+        return ans;
+    }
+}
