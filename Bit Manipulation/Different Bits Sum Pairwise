@@ -1,0 +1,18 @@
+public class Solution {
+    
+    public int cntBits(ArrayList<Integer> A) {
+        int n=A.size();
+        long ans=0;
+        long m=1000000007;
+        for(int i=0;i<32;i++){
+            int x=1<<i;
+            int z=0,y=0;
+            for(int j=0;j<n;j++){
+                if((x&A.get(j))==0) z++;
+                else y++;
+            }
+            ans= (ans + (2*z*y)%m)%m;
+        }
+        return (int)ans;
+    }
+}
