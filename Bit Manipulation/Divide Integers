@@ -1,0 +1,24 @@
+public class Solution {
+    public int divide(int A, int B) {
+        if((A==Integer.MIN_VALUE && B==-1) || B==0)
+            return Integer.MAX_VALUE;
+        
+        long a=A;
+        long b=B;
+        
+        int sign=1;
+        if((a>0&&b<0)||(a<0&&b>0)) sign=-1;
+        
+        a=Math.abs(a);
+        b=Math.abs(b);
+        
+        long q=0, temp=0;
+        for(int i=31;i>=0;i--){
+            if(temp+(b<<i)<=a){
+                temp+=(b<<i);
+                q=q|(1<<i);
+            }
+        }
+        return (int)(sign*q);
+    }
+}
