@@ -1,0 +1,40 @@
+public class Solution {
+    ArrayList<String> ans;
+    public void solve(String a, String curr, int in, int k){
+        //System.out.println(curr);
+        int n=a.length();
+        if(in==n){
+            if(k==4) ans.add(curr.substring(0,curr.length()-1));
+            return;
+        }
+        if(k>4) return;
+        String x=new String(curr);
+        x+=a.charAt(in);
+        x+=".";
+        solve(a,x,in+1,k+1);
+        if(in<n-1&& a.charAt(in)!='0'){
+            String y=new String(curr);
+            y+=a.charAt(in);
+            y+=a.charAt(in+1);
+            y+=".";
+            solve(a,y,in+2,k+1);
+        }
+        if(in<n-2 && a.charAt(in)!='0'){
+            String y=new String(curr);
+            y+=a.charAt(in);
+            y+=a.charAt(in+1);
+            y+=a.charAt(in+2);
+            int z=Integer.parseInt(a.substring(in,in+3));
+            if(z<256){
+                y+=".";
+                solve(a,y,in+3,k+1);
+            }
+        }
+        
+    }
+    public ArrayList<String> restoreIpAddresses(String a) {
+        ans = new ArrayList<String>();
+        solve(a,"",0,0);
+        return ans;
+    }
+}
