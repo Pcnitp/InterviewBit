@@ -1,0 +1,22 @@
+public class Solution {
+    // DO NOT MODIFY THE LIST. IT IS READ ONLY
+    public int singleNumber(final List<Integer> a) {
+        int n=a.size();
+
+        int ans=0;
+        for(int i=0;i<31;i++){
+            int y=(1<<i);
+            int count=0;
+            for(int j=0;j<n;j++){
+                int v=(y & a.get(j));
+                //System.out.print(v+" "+a.get(j)+"/");
+                if(v==y) count++;
+            }
+            
+            if(count%3!=0)
+                ans+=y;
+            //System.out.println(count+" "+y);
+        }
+        return ans;
+    }
+}
