@@ -1,0 +1,63 @@
+public class Solution {
+    
+    public String intToRoman(int n) {
+        String ans="";
+        
+        if(n>=1000){
+            int x=n/1000;
+            for(int i=0;i<x;i++)
+                ans+="M";
+            n=n%1000;
+        }
+        
+        if(n>=900){
+            x=n/900;
+            for(int i=0;i<x;i++)
+                ans+="CM";
+            n=n%900;
+        }
+        
+        if(n>=500){
+            x=n/500;
+            for(int i=0;i<x;i++)
+                ans+="D";
+            n=n%500;
+        }
+        
+        
+        if(n>=400){
+            x=n/400;
+            for(int i=0;i<x;i++)
+                ans+="CD";
+            n=n%400;
+        }
+        
+        if(n>=100){
+            x=n/100;
+            for(int i=0;i<x;i++)
+                ans+="C";
+            n=n%100;
+        }
+        
+        if(n>=90){
+            x=n/90;
+            for(int i=0;i<x;i++)
+                ans+="XC";
+            n=n%90;
+        }
+        
+        if(n>=50){
+            x=n/50;
+            for(int i=0;i<x;i++)
+                ans+="L";
+            n=n%50;
+        }
+        
+        if(n>=40){
+            x=n/40;
+            for(int i=0;i<x;i++)
+                ans+="L";
+            n=n%40;
+        }
+    }
+}
