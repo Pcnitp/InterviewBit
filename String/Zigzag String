@@ -1,0 +1,26 @@
+public class Solution {
+    public String convert(String a, int k) {
+        String ans="";
+        int n=a.length();
+        if(k==1) return a;
+        if(k==0) return ans;
+        
+        String[] x=new String[k];
+        for(int i=0;i<k;i++)
+            x[i]="";
+        
+        int j=0;
+        while(j<n){
+            for(int i=0;i<k&&j<n;i++,j++)
+                x[i]+=a.charAt(j);
+ 
+            for(int i=k-2;i>0&&j<n;i--,j++)
+                x[i]+=a.charAt(j);
+        }
+        
+        for(int i=0;i<k;i++)
+            ans+=x[i];
+        
+        return ans;
+    }
+}
