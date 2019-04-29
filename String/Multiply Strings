@@ -1,0 +1,47 @@
+public class Solution {
+    public String multiply(String a, String b) {
+        if(a.equals("0")|| b.equals("0")) return "0";
+        int n=a.length();
+        int m=b.length();
+        
+        char[] ans=new char[n+m+1];
+        Arrays.fill(ans,'0');
+        
+        for(int i=0;i<m;i++){
+            int bi=b.charAt(m-1-i) - '0';
+            int cary=0;
+            String buf="";
+            for(int j=n-1;j>-1;j--){
+                int ai=a.charAt(j)-'0';
+                int x=ai*bi + cary;
+                cary=x/10;
+                int y=x%10;
+                //System.out.println(x+" "+cary);
+                buf=(char)('0'+y)+buf;
+            }
+            buf=(char)('0'+cary)+buf;
+            //System.out.println(buf);
+            cary=0;
+            int z=buf.length()-1;
+            int j=n+m-i;
+            for(int k=z;k>-1;k--,j--){
+                int x=ans[j]-'0' +buf.charAt(k)-'0'+cary;
+                int y=x%10;
+                
+                ans[j]=(char)(y+'0');
+                cary=x/10;
+                //System.out.println(x+" "+cary);
+            }
+            ans[j]=(char)(cary+'0');
+            //System.out.println(ans);
+        }
+        int k=0;
+        while(k<=n+m && ans[k]=='0') k++;
+        String res="";
+        while(k<=n+m){
+            res+=ans[k];
+            k++;
+        }
+        return res;
+    }
+}
