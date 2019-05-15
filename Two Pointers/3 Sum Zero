@@ -1,0 +1,28 @@
+public class Solution {
+    public ArrayList<ArrayList<Integer>> threeSum(ArrayList<Integer> a) {
+        ArrayList<ArrayList<Integer>> ans=new ArrayList<ArrayList<Integer>>();
+        int n=a.size();
+        Collections.sort(a);
+        
+        for(int i=0;i<n-2;i++){
+            int x=a.get(i);
+            int j=i+1;
+            int k=n-1;
+            while(j<k){
+                int y=a.get(j)+a.get(k);
+                if(x+y==0){
+                    ArrayList<Integer> ar=new ArrayList<>();
+                    ar.add(x);
+                    ar.add(a.get(j));
+                    ar.add(a.get(k));
+                    if(!ans.contains(ar)) ans.add(ar);
+                    j++;
+                    k--;
+                }
+                else if(x+y>0) k--;
+                else j++;
+            }
+        }
+        return ans;
+    }
+}
