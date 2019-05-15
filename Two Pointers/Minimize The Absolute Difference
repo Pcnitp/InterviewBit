@@ -1,0 +1,20 @@
+public class Solution {
+    public int solve(ArrayList<Integer> a, ArrayList<Integer> b, ArrayList<Integer> c) {
+        int i=a.size()-1;
+        int j=b.size()-1;
+        int k=c.size()-1;
+        int min=Integer.MAX_VALUE;
+        while(i>=0 && j>=0 && k>=0){
+            int m1=Math.max(a.get(i),Math.max(b.get(j),c.get(k)));
+            int m2=Math.min(a.get(i),Math.min(b.get(j),c.get(k)));
+            int curr=Math.abs(m1-m2);
+            
+            if(curr<min) min=curr;
+            
+            if(a.get(i)==m1) i--;
+            else if(b.get(j)==m1) j--;
+            else k--;
+        }
+        return min;
+    }
+}
