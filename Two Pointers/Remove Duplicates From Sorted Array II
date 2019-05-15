@@ -1,0 +1,33 @@
+public class Solution {
+    public int removeDuplicates(ArrayList<Integer> a) {
+        int n=a.size();
+        int m=n;
+        for(int i=0;i<n;){
+            int x=a.get(i);
+            int j=i;
+            int count=0;
+            while(j<n && a.get(j)==x){
+                j++;
+                count++;
+            }
+            
+            if(count<3){
+                i+=count;
+                continue;
+            }
+            
+            i+=2;
+            int c=i;
+            while(j<n){
+                a.set(c,a.get(j));
+                c++;
+                j++;
+            }
+            n-=count-2;
+            //for(int z=0;z<m;z++)
+              //  System.out.print(a.get(z)+" ");
+            //System.out.println();
+        }
+        return n;
+    }
+}
