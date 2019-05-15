@@ -1,0 +1,24 @@
+public class Solution {
+    
+ 
+    public int minimize(final int[] a, final int[] b, final int[] c) {
+        int l=a.length;
+        int m=b.length;
+        int n=c.length;
+        
+        int min=Integer.MAX_VALUE;
+        int i=0,j=0,k=0;
+        
+        while(i<l&&j<m&&k<n){
+            //System.out.println(a[i]+" "+b[j]+" "+c[k]);
+            int x=Math.max(a[i],Math.max(b[j],c[k]));
+            int y=Math.min(a[i],Math.min(b[j],c[k]));
+            min=Math.min(min,x-y);
+            if(a[i]<=b[j]&&a[i]<=c[k]) i++;
+            else if(a[i]>=b[j]&&b[j]<=c[k]) j++;
+            else k++;
+        }
+        
+        return min;
+    }
+}
