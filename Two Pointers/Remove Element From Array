@@ -1,0 +1,14 @@
+public class Solution {
+    public int removeElement(ArrayList<Integer> a, int b) {
+        int n=a.size()+1;
+        a.add(0,0);
+        int j=0;
+        for(int i=1;i<n;i++){
+            if(a.get(i)!=b){
+                a.set(j,a.get(i));
+                j++;
+            }
+        }
+        return j;
+    }
+}
