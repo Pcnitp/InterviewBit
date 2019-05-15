@@ -1,0 +1,31 @@
+public class Solution {
+
+    public int[] maxone(int[] a, int m) {
+        int n=a.length;
+        int max=0;
+        int start=0;
+        int wl=0,wr=0;
+        int count=0;
+        for(wr<n){
+            if(count<=m){
+                if(a[wr]==0) count++;
+                wr++;
+            }
+            else{
+                if(a[wl]==0) count--;
+                wl++;
+            }
+            
+            if(count<=m&&wr-wl>max){
+                max=wr-wl;
+                start=wl;
+            }
+        }
+        
+        int[] res=new int[max];
+        for(int i=0;i<max;i++)
+            res[i]=start+i;
+            
+        return res;
+    }
+}
