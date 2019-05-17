@@ -1,0 +1,47 @@
+public class Solution {
+    ArrayList<ArrayList<String>> ans;
+    int n;
+    
+    public boolean isPossible(int[][] a, int r, int c){
+        for(int i=0;i<r;i++)
+            if(a[i][c]==1) return false;
+        
+        for(int j=r-1,t=c-1;j>=0 && t>=0;j--,t--)
+            if(a[j][t]==1) return false;
+      
+        for(int j=r-1,t=c+1;j>=0 && t<n;j--,t++)
+            if(a[j][t]==1) return false;
+            
+        return true;
+    }
+    
+    public void plq(int[][] a, int r){
+        if(r==n){
+            ArrayList<String> ar=new ArrayList<>();
+            for(int i=0;i<n;i++){
+                String s="";
+                for(int j=0;j<n;j++){
+                    if(a[i][j]==0) s+=".";
+                    else s+="Q";
+                }
+                ar.add(s);
+            }
+            ans.add(ar);
+        }
+        
+        for(int i=0;i<n;i++){
+            if(!isPossible(a,r,i)) continue;
+            a[r][i]=1;
+            plq(a,r+1);
+            a[r][i]=0;
+        }
+    }
+    
+    public ArrayList<ArrayList<String>> solveNQueens(int m) {
+        ans=new ArrayList<ArrayList<String>>();
+        n=m;
+        int[][] a=new int[n][n];
+        plq(a,0);
+        return ans;
+    }
+}
