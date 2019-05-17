@@ -1,0 +1,19 @@
+public class Solution {
+    ArrayList<String> ans;
+    
+    public void solve(int n, int x, int y, String s){
+        if(x==n&&y==n){
+            if(!ans.contains(s)) ans.add(s);
+            return;
+        }
+        String r=new String(s);
+        if(x<n) solve(n,x+1,y,r+"(");
+        if(y<n && y<x) solve(n,x,y+1,s+")");
+    }
+    
+    public ArrayList<String> generateParenthesis(int n) {
+        ans=new ArrayList<String>();
+        solve(n,0,0,"");
+        return ans;
+    }
+}
