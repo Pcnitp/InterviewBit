@@ -1,0 +1,43 @@
+public class Solution {
+    ArrayList<ArrayList<Integer>> ans;
+    
+    public void helper(ArrayList<Integer> a, int in, int k, ArrayList<Integer> ar){
+        int n=ar.size();
+        int sum=0;
+        for(int i=0;i<n;i++)
+            sum+=ar.get(i);
+        if(sum==k){
+            ans.add(ar);
+            return;
+        }
+        if(sum>k) return;
+        
+        int m=a.size();
+        if(in==m) return;
+        
+        ArrayList<Integer> ax=new ArrayList<>();
+        for(int i=0;i<n;i++)
+            ax.add(ar.get(i));
+            
+        ArrayList<Integer> ay=new ArrayList<>();
+        for(int i=0;i<n;i++)
+            ay.add(ar.get(i));
+        
+        ax.add(a.get(in));
+        helper(a,in, k, ax);
+        //helper(a,in+1, k, ax);
+        helper(a,in+1, k, ar);
+    }
+    
+    public ArrayList<ArrayList<Integer>> combinationSum(ArrayList<Integer> a, int k) {
+        ans=new ArrayList<ArrayList<Integer>>();
+        ArrayList<Integer> ar=new ArrayList<>();
+        Collections.sort(a);
+        int n=a.size();
+        for(int i=0;i<n-1;i++){
+            if(a.get(i)==a.get(i+1))
+        }
+        helper(a, 0, k, ar);
+        return ans;
+    }
+}
