@@ -1,0 +1,40 @@
+public class Solution {
+    ArrayList<ArrayList<String>> ans;
+    
+    public boolean check(String s){
+        int n=s.length()/2;
+        for(int i=0;i<n;i++)
+            if(s.charAt(i)!=s.charAt(n-i-1))
+                return false;
+        
+        return true;
+    }
+    
+    public void solve(String a, int in, ArrayList<String> ar){
+        int n=a.length();
+        if(in==n){ 
+            if(ar.size()>0) ans.add(ar);
+            return;
+        }
+        
+        String s="";
+        for(int i=in;i<n;i++){
+            ArrayList<String> ar1=new ArrayList<>();
+            for(String x: ar) ar1.add(x);
+            s+=a.charAt(i);
+            if(check(s)){
+               // System.out.println("hgfg");
+                ar1.add(s);
+                solve(a,i+1,ar1);
+            }
+        }
+    }
+    
+    public ArrayList<ArrayList<String>> partition(String a) {
+        ans=new ArrayList<ArrayList<String>>();
+        ArrayList<String> ar=new ArrayList<>();
+        solve(a,0,ar);
+        System.out.println("hgfg "+check("ds"));
+        return ans;
+    }
+}
