@@ -1,0 +1,27 @@
+public class Solution {
+    public int braces(String s) {
+        int n=s.length();
+        Stack<Character> stack=new Stack<>();
+        for(int i=0;i<n;i++){
+            if(s.charAt(i)!=')')
+                stack.push(s.charAt(i));
+            else{
+                if(stack.peek()=='(') return 1;
+                int count=0;
+                while(stack.peek()!='('){
+                    stack.pop();
+                    count++;
+                }
+                if(count<3) return 1;
+                stack.pop();
+                stack.push('a');
+            }
+        }
+        if(stack.size()>0){
+            while(!stack.isEmpty())
+                if(stack.pop()=='(') return 1;
+            return 0;
+        }
+        return 0;
+    }
+}
