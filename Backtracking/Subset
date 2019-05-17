@@ -1,0 +1,30 @@
+public class Solution {
+    ArrayList<ArrayList<Integer>> ans;
+    
+    public void subset(ArrayList<Integer> a, int i, ArrayList<Integer> ar){
+        int n=a.size();
+        if(i==n)
+            return ;
+        
+        ArrayList<Integer> ar1=new ArrayList<Integer>();
+        for(int j=0;j<ar.size();j++)
+            ar1.add(ar.get(j));
+
+        ar1.add(a.get(i));
+        ans.add(ar1);
+        
+        subset(a, i+1, ar1);
+    
+        subset(a, i+1, ar);
+        
+    }
+    
+    public ArrayList<ArrayList<Integer>> subsets(ArrayList<Integer> a) {
+        ans=new ArrayList<>();
+        Collections.sort(a);
+        ArrayList<Integer> ar=new ArrayList<>();
+        ans.add(ar);
+        subset(a,0,ar);
+        return ans;
+    }
+}
