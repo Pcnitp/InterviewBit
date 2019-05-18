@@ -1,0 +1,22 @@
+public class Solution {
+    
+    public int colorful(int a) {
+        HashMap<Integer, Integer> hm=new HashMap<>();
+        String s=Integer.toString(a);
+        int n=s.length();
+        
+        for(int i=1;i<=n;i++){
+            for(int j=0;j<n-i+1;j++){
+                String x=s.substring(j,j+i);
+                int val=Integer.parseInt(x);
+                int key=1;
+                for(int k=0;k<i;k++)
+                    key*=x.charAt(k)-'0';
+                    
+                if(hm.containsKey(key)) return 0;
+                else hm.put(key,val);
+            }
+        }
+        return  1;
+    }
+}
