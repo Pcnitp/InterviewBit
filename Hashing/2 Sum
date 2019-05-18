@@ -1,0 +1,28 @@
+public class Solution {
+    // DO NOT MODIFY THE ARGUMENTS WITH "final" PREFIX. IT IS READ ONLY
+    public int[] twoSum(final int[] a, int b) {
+        HashMap<Integer,Integer> hm=new HashMap<>();
+        int n=a.length;
+        // for(int i=0;i<n;i++){
+        //     if(hm.containsKey(a[i])) continue;
+        //     hm.put(i,a[i]);
+        // }
+        
+        int[] ans=new int[2];
+        for(int i=0;i<n;i++){
+            if(hm.containsKey(b-a[i])){
+                int j=hm.get(b-a[i]);
+                int k=Math.max(j,i);
+                j=j+i-k;
+                ans[0]=j+1;
+                ans[1]=k+1;
+                return ans;
+            }
+            
+           if(!hm.containsKey(a[i])) hm.put(a[i],i); 
+           
+        }
+        
+        return new int[];
+    }
+}
