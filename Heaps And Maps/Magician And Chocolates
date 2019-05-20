@@ -1,0 +1,34 @@
+public class Solution {
+    public int nchoc(int k, int[] a) {
+        TreeMap<Integer,Integer> tm=new TreeMap<>();
+        int n=a.length;
+        for(int i=0;i<n;i++){
+            if(tm.containsKey(a[i])){
+                int count=tm.get(a[i]);
+                count++;
+                tm.put(a[i],count);
+            }
+            else tm.put(a[i],1);
+        }
+            
+        long sum=0;
+        while(k>0){
+            k--;
+            int x=tm.lastKey();
+            int count=tm.get(x);
+            count--;
+            if(count>0) tm.put(x,count);
+            else tm.remove(x);
+            sum+=x;
+            //System.out.println(i+" "+x);
+            x=x/2;
+            if(tm.containsKey(x)){
+                count=tm.get(x);
+                count++;
+                tm.put(x,count);
+            }
+            else tm.put(x,1);
+        }
+        return (int)(sum%1000000007);
+    }
+}
