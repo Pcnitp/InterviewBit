@@ -1,0 +1,47 @@
+/**
+ * Definition for binary tree
+ * class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) {
+ *      val = x;
+ *      left=null;
+ *      right=null;
+ *     }
+ * }
+ */
+public class Solution {
+    
+    public int check(TreeNode a,TreeNode b){
+        if(a.left==null&&b.right!=null) return 0;
+        if(a.left!=null&&b.right==null) return 0;
+        if(a.right==null&&b.left!=null) return 0;
+        if(a.right!=null&&b.left==null) return 0;
+        if(a.left==null&&b.right==null && a.right==null&&b.left==null) return 1;
+        
+        int n1=0,n2=0;
+        if(a.left==null&&b.right==null) n1=1;
+        else if(a.left==null || b.right==null) return 0;
+        else if(a.left.val==b.right.val) n1=check(a.left,b.right);
+        else return 0;
+        
+        if(a.right==null&&b.left==null) n2=1;
+        else if(a.right==null|| b.left==null) return 0;
+        else if(a.right.val==b.left.val) n2=check(a.right,b.left);
+        else return 0;
+        
+        
+        return n1*n2;
+    }
+    
+    public int isSymmetric(TreeNode a) {
+        if(a==null) return 1;
+        if(a.left==null&&a.right==null) return 1;
+        if(a.left==null||a.right==null) return 0;
+        if(a.right.val!=a.left.val) return 0;
+        
+        return check(a.left,a.right);
+        
+    }
+}
