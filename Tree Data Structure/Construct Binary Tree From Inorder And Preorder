@@ -1,0 +1,60 @@
+/**
+ * Definition for binary tree
+ * class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) {
+ *      val = x;
+ *      left=null;
+ *      right=null;
+ *     }
+ * }
+ */
+public class Solution {
+    public TreeNode buildTree(ArrayList<Integer> pr, ArrayList<Integer> in) {
+        int n=in.size();
+        if(n==0){
+            TreeNode ans=null;
+            return ans;
+        }
+        if(n==1){
+            TreeNode ans=new TreeNode(in.get(0));
+            return ans;
+        }
+        int x=pr.get(0);
+        TreeNode root=new TreeNode(x);
+        ArrayList<Integer> in1=new ArrayList<>();
+        ArrayList<Integer> in2=new ArrayList<>();
+        
+        int i=0;
+        while(in.get(i)!=x){
+            in1.add(in.get(i));
+            i++;
+        }
+        int k=i;
+        i++;
+        while(i<n){
+            in2.add(in.get(i));
+            i++;
+        }
+        
+        HashMap<Integer,Integer> hm=new HashMap<>();
+        for(int j=0;j<n;j++)
+            hm.put(in.get(j),j);
+        
+        ArrayList<Integer> pr1=new ArrayList<>();
+        ArrayList<Integer> pr2=new ArrayList<>();
+        
+        
+        for(int j=1;j<n;j++){
+            int y=hm.get(pr.get(j));
+            if(y<k) pr1.add(pr.get(j));
+            else pr2.add(pr.get(j));
+        }
+        
+        root.left=buildTree(pr1,in1);
+        root.right=buildTree(pr2,in2);
+        return root;
+    }
+}
