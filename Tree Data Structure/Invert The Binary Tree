@@ -1,0 +1,51 @@
+/**
+ * Definition for binary tree
+ * class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) {
+ *      val = x;
+ *      left=null;
+ *      right=null;
+ *     }
+ * }
+ */
+public class Solution {
+    
+    public void invert(TreeNode a, TreeNode b,TreeNode preva, TreeNode prevb){
+        if(a==null&&b==null) return;
+        if(a==null){
+            =new TreeNode(b.val);
+            TreeNode c=b.left;
+            TreeNode d=b.right;
+            prev
+            
+            invert(a.left,d);
+            invert(a.right,c);
+        }
+        else if(b==null){
+            b=new TreeNode(a.val);
+            TreeNode c=a.left;
+            TreeNode d=a.right;
+            b.right=null;
+            b.left=null;
+            b=null;
+            invert(b.left,d);
+            invert(b.right,c);
+        }
+        else{
+            int t=a.val;
+            a.val=b.val;
+            b.val=t;
+            invert(a.left,b.right);
+            invert(a.right,b.left);
+        }
+    }
+    
+    public TreeNode invertTree(TreeNode a) {
+        if(a==null) return a;
+        invert(a.left,a.right,a,a);
+        return a;
+    }
+}
