@@ -1,0 +1,63 @@
+/**
+ * Definition for binary tree
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+
+public class Solution {
+    TreeNode a;
+    public Solution(TreeNode root) {
+        a=root;
+        while(hasNext()){
+            System.out.print(next()+" ");
+        }
+    }
+
+    /** @return whether we have a next smallest number */
+    public boolean hasNext() {
+        if(a!=null) return true;
+        return false;
+    }
+
+    /** @return the next smallest number */
+    public int next() {
+        int ret=0;
+        while(a!=null){
+            if(a.left==null){
+                ret=a.val;
+                a=a.right;
+                break;
+            }
+            else{
+                TreeNode t=a.left;
+                while(t.right!=null&& t.right!=a)
+                    t=t.right;
+                    
+                if(t.right==null){
+                    t.right=a;
+                    TreeNode x=a.left;
+                    a.left=null;
+                    a=x;
+                }
+                else{
+                    ret=t.val;
+                    t.right=null;
+                    a=a.right;
+                    break;
+                }
+            }
+        }
+        
+        return ret;
+    }
+}
+
+/**
+ * Your Solution will be called like this:
+ * Solution i = new Solution(root);
+ * while (i.hasNext()) System.out.print(i.next());
+ */
