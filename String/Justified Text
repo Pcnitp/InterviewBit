@@ -1,0 +1,73 @@
+public class Solution {
+    
+    public String populate(String s, int l){
+        s=s.substring(1);
+        String[] a=s.split(" ");
+        int n=a.length;
+        //System.out.println(s+" "+n);
+        if(n==1)
+            for(int i=0;i<l-a[0].length();i++)
+                s+=" ";
+        else{
+            int m=0;
+            for(int i=0;i<n;i++)
+                m+=a[i].length();
+                
+            int gap=(l-m)/(n-1);
+            int gp=(l-m)%(n-1);
+            String g="";
+            for(int i=0;i<gap;i++)
+                g+=" ";
+            g+=" ";
+            //System.out.println(gap+" "+l+" "+m+" "+n);
+            s="";
+            for(int i=0;i<gp;i++)
+                s+=a[i]+g;
+            
+            g=g.substring(1);
+            for(int i=gp;i<n-1;i++)
+                s+=a[i]+g;
+            
+            s+=a[n-1];
+        }
+        //System.out.println(s);
+        return s;
+    }
+    
+    public ArrayList<String> fullJustify(ArrayList<String> a, int l) {
+        ArrayList<String> res=new ArrayList<String>();
+        int n=a.size();
+        if(n==0) return res;
+        
+        int curr=0;
+        String s="";
+        for(int i=0;i<n;i++){
+            curr+=a.get(i).length()+1;
+            if(curr>l+1){
+                res.add(s);
+                curr=0;
+                i--;
+                s="";
+            }
+            else s+=" "+a.get(i);
+        }
+        
+        if(!s.equals("")) res.add(s);
+        
+        n=res.size();
+        for(int i=0;i<n-1;i++){
+            s=res.get(i);
+            s=populate(s,l);
+            res.set(i,s);
+        }
+        
+        s=res.get(n-1).substring(1);
+        //System.out.println(s.length()+" "+l);
+        int z=s.length();
+        for(int i=0;i<l-z;i++)
+            s+=" "; 
+        res.set(n-1,s);
+        
+        return res;
+    }
+}
