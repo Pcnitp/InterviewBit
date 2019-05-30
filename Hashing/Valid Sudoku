@@ -1,0 +1,63 @@
+public class Solution {
+    // DO NOT MODIFY THE LIST. IT IS READ ONLY
+    
+    public boolean row(String s){
+        int[] a=new int[10];
+        for(int i=0;i<9;i++){
+            if(s.charAt(i)=='.') continue;
+            int x=(int)(s.charAt(i)-'0');
+            if(x<1||x>9) return false;
+            a[x]++;
+        }
+        
+        for(int i=1;i<10;i++)
+            if(a[i]>1) return false;
+        
+            
+        return true;
+    }
+    
+    public boolean column(final List<String> s, int c){
+        int[] a=new int[10];
+        for(int i=0;i<9;i++){
+            if(s.get(i).charAt(c)=='.') continue;
+            int x=(int)(s.get(i).charAt(c)-'0');
+            if(x<1||x>9) return false;
+            a[x]++;
+        }
+        
+        for(int i=1;i<10;i++)
+            if(a[i]>1) return false;
+            
+        return true;
+    }
+    
+    public boolean check(final List<String> s, int r, int c){
+        int[] a=new int[10];
+        for(int i=0;i<3;i++){
+            for(int j=0;j<3;j++){
+                if(s.get(i+r).charAt(c+j)=='.') continue;
+                int x=(int)(s.get(i+r).charAt(c+j)-'0');
+                if(x<1||x>9) return false;
+                a[x]++;
+            }
+        }
+        
+        for(int i=1;i<10;i++)
+            if(a[i]>1) return false;
+            
+        return true;
+    }
+    
+    public int isValidSudoku(final List<String> a) {
+        for(int i=0;i<9;i++)
+            if(!row(a.get(i)) || !column(a,i)){
+                return 0;
+                
+        for(int i=0;i<7;i+=3)
+            for(int j=0;j<7;j+=3)
+                if(!check(a,i,j)) return 0;
+        
+        return 1;
+    }
+}
