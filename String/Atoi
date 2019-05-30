@@ -1,0 +1,48 @@
+public class Solution {
+    // DO NOT MODIFY THE LIST. IT IS READ ONLY
+    
+    public int solve(final String s){
+        int n=s.length();
+        int i=0;
+        while(i<n && s.charAt(i)==' ')
+            i++;
+        
+        String r="";
+        while(i<n && s.charAt(i)!=' '){
+            r+=s.charAt(i);
+            i++;
+        }
+        
+        n=r.length();
+        if(n==0) return 0;
+        
+        long ans=0;
+        int j=0;
+        if(r.charAt(0)=='-'||r.charAt(0)=='+') j++;
+        
+        for(;j<n;j++){
+            if(r.charAt(j)>='0' && r.charAt(j)<='9'){
+                int x=r.charAt(j)-'0';
+                ans=ans*10+x;
+                if(ans>Integer.MAX_VALUE) 
+                    break;
+            }
+            else{
+                if(r.charAt(0)=='-') return (int)(ans*-1);
+                return (int)(ans);
+            }
+        }
+        
+        if(ans>Integer.MAX_VALUE){
+            if(r.charAt(0)=='-') return Integer.MIN_VALUE;
+            else return Integer.MAX_VALUE;
+        }
+        
+        if(r.charAt(0)=='-') return (int)(ans*-1);
+        return (int)(ans);
+    }
+    
+    public int atoi(final String s) {
+        return solve(s);
+    }
+}
