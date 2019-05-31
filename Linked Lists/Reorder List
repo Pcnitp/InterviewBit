@@ -1,0 +1,71 @@
+/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     public int val;
+ *     public ListNode next;
+ *     ListNode(int x) { val = x; next = null; }
+ * }
+ */
+public class Solution {
+    
+    public ListNode reverse(ListNode a, int n, int m) {
+        if(n==m) return a;
+        ListNode start=a;
+        ListNode prev=new ListNode(0);
+        prev.next=a;
+        for(int i=0;i<n-1;i++){
+            prev=start;
+            start=start.next;
+        }
+        //System.out.println(prev.val+" "+start.val);
+        ListNode first=start;
+        ListNode sec=start.next;
+        for(int i=n;i<m;i++){
+            //System.out.println("===");
+            ListNode temp=sec.next;
+            sec.next=first;
+            first=sec;
+            sec=temp;
+        }
+        
+        //System.out.println(first.val+" "+sec.val);
+        prev.next=first;
+        start.next=sec;
+        
+        if(n==1) return prev.next;
+        return a;
+    }
+    
+    public ListNode reorderList(ListNode a) {
+        int n=0;
+        ListNode b=a;
+        while(b!=null){
+            b=b.next;
+            n++;
+        }
+        
+        if(n<3) return a;
+        
+        b=a;
+        for(int i=1;i<n/2;i++)
+            b=b.next;
+        
+        if(n%2!=0) b=b.next;
+        
+        b.next=reverse(b.next,1,n/2);
+        ListNode d=b.next;
+        b.next=null;
+        
+        ListNode c=a;
+        while(d!=null){
+            ListNode temp=c.next;
+            c.next=new ListNode(d.val);
+            c=c.next;
+            c.next=temp;
+            d=d.next;
+            c=c.next;
+        }
+        
+        return a;
+    }
+}
