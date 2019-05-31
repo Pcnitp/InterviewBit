@@ -1,0 +1,38 @@
+public class Solution {
+    // DO NOT MODIFY THE ARGUMENTS WITH "final" PREFIX. IT IS READ ONLY
+    public int solve(final int[] a) {
+        int n=a.length;
+        if(n<3) return n;
+        Arrays.sort(a);
+        
+        int[][] dp=new int[n][n];
+        for(int i=0;i<n;i++)
+            dp[i][n-1]=2;
+            
+        int max=2;
+        for(int j=n-2;j>0;j--){
+            int i=j-1,k=j+1;
+            while(i>=0 && k<n){
+                if(a[i]+a[k]<2*a[j])
+                    k++;
+                else if(a[i]+a[k]>2*a[j]){
+                    dp[i][j]=2;
+                    i--;
+                }
+                else{
+                    dp[i][j]=dp[j][k]+1;
+                    max=Math.max(max,dp[i][j]);
+                    i--;
+                    k++;
+                }
+            }
+            
+            while(i>=0){
+                dp[i][j]=2;
+                i--;
+            }
+        }
+        
+        return max;
+    }
+}
