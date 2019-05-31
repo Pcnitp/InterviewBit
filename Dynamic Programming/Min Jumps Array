@@ -1,0 +1,32 @@
+public class Solution {
+    public int jump(int[] a) {
+        int n=a.length;
+        if(n<=1) return 0;
+        int count=0;
+        int[] b=new int[n];
+        
+        for(int i=0;i<n;i++)
+            b[i]=a[i]+i;
+        
+        
+        
+        for(int i=0;i<n;i++){
+            if(b[i]==0) return -1;
+            count++;
+            int max=b[i];
+            if(max>=n-1) return count;
+            int in=0;
+            for(int j=i+1;j<n && j<=b[i];j++){
+                if(max<=b[j]){
+                    max=b[j];
+                    in=j;
+                }
+            }
+            i=in-1;
+            if(max>=n-1) return count+1;
+        }
+        
+        
+        return -1;
+    }
+}
