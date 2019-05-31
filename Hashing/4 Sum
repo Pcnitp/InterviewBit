@@ -1,0 +1,51 @@
+public class Solution {
+    public ArrayList<ArrayList<Integer>> fourSum(ArrayList<Integer> a, int key) {
+        ArrayList<ArrayList<Integer>> ans=new ArrayList<>();
+        Collections.sort(a);
+        int n=a.size();
+        HashMap<Integer,ArrayList<Integer>> hm=new HashMap<>();
+        
+        for(int i=0;i<n;i++){
+            int x=a.get(i);
+            if(hm.containsKey(x)){
+                ArrayList<Integer> ar=hm.get(x);
+                ar.add(i);
+                hm.put(x,ar);
+            }
+            else{
+                ArrayList<Integer> ar=new ArrayList<Integer>();
+                ar.add(i);
+                hm.put(x,ar);
+            }
+        }
+        
+        for(int i=0;i<n-3;i++){
+            int x=a.get(i);
+            for(int j=i+1;j<n-2;j++){
+                int y=a.get(j);
+                for(int k=j+1;k<n-1;k++){
+                    int z=a.get(k);
+                    int t=key-(x+y+z);
+                    if(!hm.containsKey(t)) continue;
+                    ArrayList<Integer> arr=hm.get(t);
+                    
+                    //boolean flag=false;
+                    for(int m=0;m<arr.size();m++){
+                        int u=arr.get(m);
+                        if(u>i&&u>j&&u>k){
+                            ArrayList<Integer> ar=new ArrayList<Integer>();
+                            ar.add(x);
+                            ar.add(y);
+                            ar.add(z);
+                            ar.add(t);
+                            if(!ans.contains(ar)) ans.add(ar);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        
+        return ans;
+    }
+}
