@@ -1,0 +1,27 @@
+public class Solution {
+    
+    public int solve(String s, int in, int[] dp){
+        int n=s.length();
+        if(in==n||in==n-1) return 1;
+        if(s.charAt(in)=='0') return 0;
+        if(dp[in]!=-1) return dp[in];
+        
+        int res=solve(s,in+1,dp);
+        System.out.println(res);
+        
+        if(in<n-1){
+            int x=Integer.parseInt(s.substring(in,in+2));
+            if(x<27) res+=solve(s,in+2,dp);
+        }
+        
+        dp[in]=res;
+        return res;
+    }
+    
+    public int numDecodings(String a) {
+        int n=a.length();
+        int[] dp=new int[n+1];
+        Arrays.fill(dp,-1);
+        return solve(a,0,dp);
+    }
+}
