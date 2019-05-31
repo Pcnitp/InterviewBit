@@ -1,0 +1,19 @@
+public class Solution {
+    
+    public int maxProfit(final int[] a) {
+        int n=a.length;
+        if(n<2) return 0;
+        if(n==2) return Math.max(0,a[1]-a[0]);
+    
+        int buy=a[0];
+        int ans=0;
+        for(int i=1;i<n;i++){
+            if(a[i]<buy) buy=a[i];
+            else{
+                ans+=a[i]-buy;
+                buy=a[i];
+            }
+        }
+        return ans;
+    }
+}
