@@ -1,0 +1,17 @@
+public class Solution {
+    
+    
+    public int canJump(int[] a) {
+        int n=a.length;
+        if(n==1) return 1;
+        if(a[0]==0) return 0;
+        int max=a[0];
+        
+        for(int i=0;i<n-1&& i<=max&&max<n-1;i++){
+            max=Math.max(max,i+a[i]);
+        }
+        
+        if(max>=n-1) return 1;
+        return 0;
+    }
+}
