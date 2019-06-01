@@ -1,0 +1,80 @@
+public class Solution {
+    
+    public int compareVersion(String a, String b) {
+        int i=0,j=0;
+        
+        ArrayList<String> s=new ArrayList<>();
+        int z=a.length();
+        for(int k=0;k<z;k++){
+            String t="";
+            while(k<z&&a.charAt(k)!='.'){
+                t+=a.charAt(k);
+                k++;
+            }
+            int x=0;
+            while(x<t.length() && t.charAt(x)=='0')
+                x++;
+            s.add(t.substring(x));
+        }
+        
+        ArrayList<String> r=new ArrayList<>();
+        z=b.length();
+        for(int k=0;k<z;k++){
+            String t="";
+            while(k<z&&b.charAt(k)!='.'){
+                t+=b.charAt(k);
+                k++;
+            }
+            
+            int x=0;
+            while(x<t.length() && t.charAt(x)=='0')
+                x++;
+            r.add(t.substring(x));
+        }
+        
+        //System.out.println(s.size()+" "+ r.size());
+        
+        while(i<s.size() && j<r.size()){
+            a=s.get(i);
+            b=r.get(i);
+            //System.out.println(a+" "+b);
+            
+            int n=a.length();
+            int m=b.length();
+            
+            // int x=0,y=0;
+            // while(x<n && a.charAt(x)=='0') x++;
+            // while(y<n && b.charAt(y)=='0') y++;
+            
+            if(n>m) return 1;
+            if(n<m) return -1;
+            int x=0,y=0;
+            
+            while(x<n && y<m){
+                if(a.charAt(x)==b.charAt(y)){ 
+                    x++;y++;
+                    continue;
+                }
+                if(a.charAt(x)>b.charAt(y)) return 1;
+                else return -1;
+            }
+            
+            i++;
+            j++;
+        }
+        
+        if(i==s.size()&&j==r.size()) return 0;
+        if(i==s.size()){
+            while(j<r.size()){
+                if(!r.get(j).equals("")) return -1;
+                j++;
+            }
+            return 0;
+        }
+        while(i<s.size()){
+            if(!s.get(i).equals("")) return 1;
+            i++;
+        }
+        return 0;
+    }
+}
