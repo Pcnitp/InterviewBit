@@ -1,0 +1,42 @@
+public class Solution {
+    
+    String ans;
+    
+    public boolean check(String s){
+        int n=s.length();
+        for(int i=0;i<n/2;i++)
+            if(s.charAt(i)!=s.charAt(n-i-1)) return false;
+        return true;
+    }
+    
+    public void solve(String a, int s, int e,boolean[][] dp){
+        String r=a.substring(s,e+1);
+        if(s==e){ 
+            if(ans.length()<1) ans=r;
+            return;
+        }
+        if(dp[s][e]) return;
+        
+        int n=e-s+1;
+        
+        if(n<2 || check(r)){
+            dp[s][e]=true;
+            if(ans.length()<n) ans=r;
+            return;
+        }
+        
+        solve(a,s,e-1,dp);
+        solve(a,s+1,e,dp);
+        dp[s][e]=true;
+    }
+    
+    public String longestPalindrome(String s) {
+        if(check(s)) return s;
+        int n=s.length();
+        boolean[][] dp=new boolean[n+1][n+1];
+        ans="";
+        solve(s,0,n-1,dp);
+        return ans;
+        
+    }
+}
