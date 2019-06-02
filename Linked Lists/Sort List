@@ -1,0 +1,74 @@
+/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     public int val;
+ *     public ListNode next;
+ *     ListNode(int x) { val = x; next = null; }
+ * }
+ */
+public class Solution {
+    
+    public ListNode merge(ListNode a, ListNode b){
+        ListNode c=a;
+        ListNode ans=new ListNode(0);
+        ListNode d=ans;
+        while(c!=null && b!=null){
+            if(c.val<=b.val){
+                ans.next=new ListNode(c.val);
+                c=c.next;
+                ans=ans.next;
+            } 
+            else{
+                ans.next=new ListNode(b.val);
+                b=b.next;
+                ans=ans.next;
+            }
+        }
+        
+        while(b!=null){
+            ans.next=new ListNode(b.val);
+            b=b.next;
+            ans=ans.next;
+        }
+    
+        while(c!=null){
+            ans.next=new ListNode(c.val);
+            c=c.next;
+            ans=ans.next;
+        }
+        return d.next;
+    }
+    
+    public ListNode sortList(ListNode a) {
+        int n=0;
+        ListNode b=a;
+        while(b!=null){
+            b=b.next;
+            n++;
+        }
+        
+        if(n<2) return a;
+        
+        ListNode c=new ListNode(0);
+        b=c;
+        for(int i=0;i<n/2;i++){
+            b.next=new ListNode(a.val);
+            b=b.next;
+            a=a.next;
+        }
+        
+        ListNode d=new ListNode(a.val);
+        a=a.next;
+        b=d;
+        while(a!=null){
+            b.next=new ListNode(a.val);
+            b=b.next;
+            a=a.next;
+        }
+        
+        c=sortList(c.next);
+        d=sortList(d);
+        
+        return merge(c,d);
+    }
+}
