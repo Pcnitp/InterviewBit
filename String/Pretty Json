@@ -1,0 +1,50 @@
+public class Solution {
+    public ArrayList<String> prettyJSON(String a) {
+        ArrayList<String> ans=new ArrayList<String>();
+        int n=a.length();
+        int i=0;
+        int count=0;
+        while(i<n){
+            String s="";
+            if(a.charAt(i)=='['||a.charAt(i)=='{'){
+                for(int j=0;j<count;j++)
+                    s+='\t';
+                s+=a.charAt(i);
+                ans.add(s);
+                i++;
+                count++;
+            }
+            else if(a.charAt(i)==']'||a.charAt(i)=='}'){
+                count--;
+                for(int j=0;j<count;j++)
+                    s+='\t';
+                s+=a.charAt(i);
+                if(i+1<n && a.charAt(i+1)==','){
+                    s+=a.charAt(i+1);
+                    i++;
+                }
+                ans.add(s);
+                i++;
+            }
+            else{
+                String r="";
+                for(int j=0;j<count;j++)
+                    r+='\t';
+                char c=a.charAt(i);
+                while(i<n&&c!='['&&c!=']'&&c!='{'&&c!='}'){
+                    s+=c;
+                    i++;
+                    if(c==',') break;
+                    if(i<n) c=a.charAt(i);
+                }
+                
+                int m=s.length();
+                int j=0;
+                while(j<m&&s.charAt(j)==' ') j++;
+                s=s.substring(j);
+                if(!s.equals("")) ans.add(r+s);
+            }
+        }
+        return ans;
+    }
+}
