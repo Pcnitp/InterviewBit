@@ -1,0 +1,29 @@
+class Solution {
+    int[] a=new int[14902025];
+    int i=-1;
+    int min=Integer.MAX_VALUE;
+    public void push(int x) {
+        a[++i]=x;
+        min=Math.min(min,x);
+    }
+
+    public void pop() {
+        if(i<=-1) return ;
+        i--;
+        min=Integer.MAX_VALUE;
+        if(min==a[i+1]){
+            for(int j=0;j<=i;j++)
+                min=Math.min(min,a[j]);
+        }
+    }
+
+    public int top() {
+        if(i==-1) return -1;
+        return a[i];
+    }
+
+    public int getMin() {
+        if(i==-1) return -1;
+        return min;
+    }
+}
