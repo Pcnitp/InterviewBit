@@ -1,0 +1,28 @@
+public class Solution {
+    
+    public int fact(int n){
+        int ans=1;
+        for(int i=2;i<=n;i++)
+            ans*=i;
+        return ans;
+    }
+    
+    public String solve(int n, int k, ArrayList<Integer> ar){
+        if(n==0) return "";
+        
+        int f=fact(n-1);
+        int pos=k/f;
+        k=k%f;
+        String ans=Integer.toString(ar.get(pos));
+        ar.remove(pos);
+        ans+=solve(n-1,k,ar);
+        return ans;
+    }
+    
+    public String getPermutation(int n, int k) {
+        ArrayList<Integer> ar=new ArrayList<>();
+        for(int i=1;i<=n;i++)
+            ar.add(i);
+        return solve(n,k-1,ar);
+    }
+}
