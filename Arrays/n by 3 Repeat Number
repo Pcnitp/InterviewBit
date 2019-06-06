@@ -1,0 +1,37 @@
+public class Solution {
+	// DO NOT MODIFY THE LIST
+	public int repeatedNumber(final List<Integer> a) {
+	    int n=a.size();
+	    if(n==0) return -1;
+	    if(n==1) return a.get(0);
+	    
+	    int x=a.get(0);
+	    int y=a.get(1);
+	    int xcount=0;
+	    int ycount=0;
+	    
+	    for(int z: a){
+	        if(z==x) xcount++;
+	        else if(z==y) ycount++;
+            else if(xcount==0) x=z;
+            else if(ycount==0) y=z;
+            else{
+                xcount--;
+                ycount--;
+            }
+	    }
+	    
+	    xcount=0;
+        ycount=0;
+	    
+	    for(int z: a)
+            if(z==x) xcount++;
+        
+        for(int z: a)
+            if(z==y) ycount++;
+            
+        if(xcount>n/3) return x;
+        if(ycount>n/3) return y;
+        return -1;
+	}
+}
