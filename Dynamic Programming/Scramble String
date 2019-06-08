@@ -1,0 +1,60 @@
+public class Solution {
+    
+    public boolean solve(final String a, final String b, int s1, int s2, int len,boolean[][][] dp){
+        //System.out.println(s1+" "+s2+" "+len);
+        int e1=s1+len;
+        int e2=s2+len;
+        if(len==0) return true;
+        if(len==1){
+            if(a.charAt(s1)==b.charAt(s2)) return true;
+            return false;
+        }
+        
+        int[] x=new int[256];
+        for(int i=s1;i<e1;i++)
+            x[(int)(a.charAt(i))]++;
+            
+        int[] y=new int[256];
+        for(int i=s2;i<e2;i++)
+            y[(int)(b.charAt(i))]++;
+        
+        for(int i=0;i<256;i++)
+            if(x[i]!=y[i]) return false;
+        
+        if(dp[s1][s2][len]) return true;
+        boolean f=false;
+        
+        if(a.substring(s1,s1+len).equals(b.substring(s2,s2+len))) f= true;
+        if(f){
+            dp[s1][s2][len]=f;
+            return f;
+        }
+        
+        for(int i = 1; i <len; ++i){
+            if(solve(a,b,s1,s2,i,dp) && solve(a,b,s1+i,s2+i,len-i,dp)){
+                f=true;
+                break;
+            }
+                
+            if(solve(a,b,s1,e2-i,i,dp) && solve(a,b,e1-len+i,s2,len-i,dp)){
+                f=true;
+                break;
+            }
+        }
+        
+        dp[s1][s2][len]=f;
+        return f;
+    }
+    
+    public int isScramble(final String s1, final String s2) {
+        int n=s1.length();
+        if(n!=s2.length()) return 0;
+        if(s1.equals(s2)) return 1;
+
+        boolean[][][] dp=new boolean[n+1][n+1][n+1];
+        
+        boolean f=solve(s1,s2,0,0,n,dp);
+        if(f) return 1;
+        return 0;
+    }
+}
