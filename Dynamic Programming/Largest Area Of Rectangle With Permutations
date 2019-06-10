@@ -1,0 +1,43 @@
+public class Solution {
+    public int solve(int[][] a) {
+        int r=a.length;
+        if(r==0) return 0;
+        int c=a[0].length;
+        int[][] b=new int[r+1][c+1];
+        
+        for(int i=0;i<c;i++){
+            b[0][i]=a[0][i];
+            for(int j=1;j<r;j++)
+                b[j][i]=(a[j][i]==0)? 0: b[j-1][i]+1;
+        }
+        
+        for(int i=0;i<r;i++){
+            int[] count=new int[r+1];
+            for(int j=0;j<c;j++)
+                count[b[i][j]]++;
+                
+            int col=0;
+            for(int j=r;j>=0;j--){
+                if(count[j]==0) continue;
+                for(int k=0;k<count[j];k++){
+                    b[i][col]=j;
+                    col++;
+                }
+            }
+        }
+        
+        
+        int curr=0,max=0;
+        
+        for(int i=0;i<r;i++){
+            for(int j=0;j<c;j++){
+                //System.out.print(b[i][j]+" ");
+                curr=(j+1)*b[i][j];
+                max=Math.max(max,curr);
+            }
+            //System.out.println();
+        }
+        
+        return max;
+    }
+}
