@@ -1,0 +1,37 @@
+public class Solution {
+    // DO NOT MODIFY THE ARGUMENTS WITH "final" PREFIX. IT IS READ ONLY
+    
+    public int sol(final int[] cap, final int[] cost, int wt, int i, int[][] dp){
+        int n=cap.length;
+        if(wt==0) return 0;
+        if(i==n) return Integer.MAX_VALUE/2;
+        if(dp[i][wt]!=-1) return dp[i][wt];
+        
+        int ans=sol(cap,cost,wt,i+1,dp);
+        if(cap[i]<=wt){
+            int x=cost[i]+sol(cap,cost,wt-cap[i],i,dp);
+            ans=Math.min(ans,x);
+        }
+        dp[i][wt]=ans;
+        return ans;
+    }
+    
+    public int solve(final int[] fr, final int[] cap, final int[] cost) {
+        int n=fr.length;
+        int ans=0;
+        int m=cap.length;
+        
+        int wt=0;
+        for(int i=0;i<n;i++)
+            wt=Math.max(wt,fr[i]);
+        
+        int[][] dp=new int[m+1][wt+1];
+        for(int j=0;j<=m;j++)
+            Arrays.fill(dp[j],-1);
+                
+        for(int i=0;i<n;i++)
+            ans+=sol(cap,cost,fr[i],0,dp);
+        
+        return ans;
+    }
+}
