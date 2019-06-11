@@ -1,0 +1,25 @@
+public class Solution {
+    
+    
+    public int wordBreak(String s, String[] a) {
+        Arrays.sort(a);
+        int n=a.length;
+        int m=s.length();
+        boolean[] dp=new boolean[m+1];
+        dp[0]=true;
+        
+        for(int i=0;i<m;i++){
+            if(!dp[i]) continue;
+            for(String word: a){
+                int l=word.length();
+                int end=i+l;
+                if(end>m) continue;
+                if(dp[end]) continue;
+                if(word.equals(s.substring(i,end))) dp[end]= true;
+            }
+        }
+        
+        if(dp[m]) return 1;
+        return 0;
+    }
+}
