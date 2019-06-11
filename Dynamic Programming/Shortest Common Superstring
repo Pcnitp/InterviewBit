@@ -1,0 +1,111 @@
+public class Solution {
+    
+    public boolean overlap(String s, String r){
+        int n=s.length();
+        int m=r.length();
+        
+        if(n<r.length()) return false;
+        
+        for(int i=0;i<=n-m;i++)
+            if(r.equals(s.substring(i,i+m))) return true;
+        
+        return false;
+    }
+    
+    public int common(String s, String r){
+        int m1=s.length();
+        int m2=r.length();
+        
+        int n=Math.min(m1,m2);
+        while(n>0){
+            String p=s.substring(0,n);
+            String q=r.substring(m2-n,m2);
+            if(p.equals(q)) return n;
+            
+            p=s.substring(m1-n,m1);
+            q=r.substring(0,n);
+            if(p.equals(q)) return n;
+            n--;
+        }
+        return 0;
+    }
+    
+    public int sol(String[] a, int x, String s, boolean[] visited){
+        int n=a.length;
+        if(n==x){ 
+           // System.out.println(s);
+            return s.length();
+        }
+        
+        int  i=0;
+        while(visited[i])
+            i++;
+            
+        int max=0,in=i;
+        
+        for(;i<n;i++){
+            if(visited[i]) continue;
+            
+            if(s.length()>=a[i].length()){
+                if(overlap(s,a[i])){
+                    visited[i]=true;
+                    return sol(a,x+1,s,visited);
+                }
+            }
+            else if(overlap(a[i],s)){
+                visited[i]=true;
+                return sol(a,x+1,a[i],visited);
+            }
+            
+            int y=common(s,a[i]);
+            if(y>max){
+                max=y;
+                in=i;
+            }
+        }
+        
+        visited[in]=true;
+        int m=a[in].length();
+        int m1=s.length();
+        
+        if(max==0){
+            boolean[] vis=new boolean[n];
+            for(i=0;i<n;i++)
+                vis[i]=visited[i];
+            return Math.min(sol(a,x+1,s+a[in],visited),sol(a,x+1,a[in]+s,vis));
+        }
+        
+        
+        if(s.substring(0,max).equals(a[in].substring(m-max,m))){
+            if(s.substring(m1-max,m1).equals(a[in].substring(0,max))){
+                boolean[] vis=new boolean[n];
+                for(i=0;i<n;i++)
+                    vis[i]=visited[i];
+                    
+                String p=a[in].substring(0,m-max)+s;
+                String q=s+a[in].substring(max);
+                return Math.min(sol(a,x+1,p,visited),sol(a,x+1,q,vis));
+            }
+            s=a[in].substring(0,m-max)+s;
+            return sol(a,x+1,s,visited);
+        }
+        else{
+            s=s+a[in].substring(max);
+            return sol(a,x+1,s,visited);
+        }
+    }
+    
+    public int solve(String[] a) {
+        int n=a.length;
+        if(n==0) return 0;
+
+        int min=Integer.MAX_VALUE;
+        for(int i=0;i<n;i++){
+            boolean[] visited=new boolean[n];
+            visited[i]=true;
+            int ans=sol(a,1,a[i],visited);
+            min=Math.min(min,ans);
+        }
+        return min;
+    }
+}
