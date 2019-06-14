@@ -1,0 +1,73 @@
+public class Solution {
+    
+    public class Node{
+        int key,val;
+        Node next, prev;
+        Node(int k, int v){
+            key=k;
+            val=v;
+            next=null;
+            prev=null;
+        }
+    }
+    
+    HashMap<Integer,Node> hm;
+    int cap;
+    Node start;
+    Node end;
+    
+    public Solution(int capacity) {
+        hm =new HashMap<>();
+        cap=capacity;
+        start=new Node(0,0);
+        end=new Node(0,0);
+        start.next=end;
+        end.prev=start;
+    }
+    
+    public int get(int key) {
+        if(hm.containsKey(key)){
+            Node x=hm.get(key);
+            removeNode(x);
+            addNode(x);
+            return x.val;
+        }
+        return -1;
+    }
+    
+    public void set(int key, int value) {
+        Node x=new Node(key,value);
+        if(hm.containsKey(key)){
+            Node old=hm.get(key);
+            removeNode(old);
+            addNode(x);
+        }
+        else{
+            if(cap==hm.size()){
+                //System.out.println("====");
+                Node temp=end.prev;
+                //System.out.println(temp.key+"======="+temp.val);
+                removeNode(temp);
+                hm.remove(temp.key);
+                //System.out.println(get(temp.key));
+                //System.out.println("===");
+            }
+            addNode(x);
+        }
+        hm.put(key,x);
+        //System.out.println("==");
+    }
+    
+    public void addNode(Node k){
+        k.next=start.next;
+        start.next=k;
+        k.prev=start;
+        k.next.prev=k;
+    }
+    
+    public void removeNode(Node k){
+        Node temp=k.next;
+        k.prev.next=temp;
+        temp.prev=k.prev;
+    }
+}
