@@ -1,0 +1,49 @@
+public class Solution {
+    // DO NOT MODIFY THE LIST. IT IS READ ONLY
+    
+    public boolean check(String r,HashMap<String,Integer> hm, int m, int l){
+        int n=r.length();
+        
+        HashMap<String,Integer> hm1=new HashMap<>();
+        for(String k: hm.keySet()){
+            int count=hm.get(k);
+            hm1.put(k,count);
+        }
+        
+        for(int i=0;i<n;i+=l){
+            String s=r.substring(i,i+l);
+            if(hm1.containsKey(s)){
+                int j=hm1.get(s);
+                if(j==0) return false;
+                hm1.put(s,j-1);
+            }
+            else return false;
+        }
+    
+        return true;
+    }
+    
+    public ArrayList<Integer> findSubstring(String s, final List<String> a) {
+        int n=s.length();
+        int m=a.size();
+        int l=a.get(0).length();
+        HashMap<String,Integer> hm=new HashMap<>();
+        for(int i=0;i<m;i++){
+            if(hm.containsKey(a.get(i))){
+                int count=hm.get(a.get(i));
+                hm.put(a.get(i),count+1);
+            }
+            else
+                hm.put(a.get(i),1);
+        }
+        
+        int x=l*m;
+        ArrayList<Integer> ans=new ArrayList<>();
+        for(int i=0;i<=n-x;i++){
+            String r=s.substring(i,i+x);
+            boolean f=check(r,hm,m,l);
+            if(f) ans.add(i);
+        }
+        return ans;
+    }
+}
