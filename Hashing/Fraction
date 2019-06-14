@@ -1,0 +1,39 @@
+public class Solution {
+    public String fractionToDecimal(int x, int y) {
+        if(x==0) return "0";
+        if(y==0) return "";
+        
+        StringBuilder res=new StringBuilder("");
+        if((x>0 && y<0 )||(x<0 && y>0 ))
+            res.append("-");
+        
+        long num=x;
+        long denum=y;
+        num=Math.abs(num);
+        denum=Math.abs(denum);
+        HashMap<Long,Integer> hm=new HashMap<>();
+        
+        long z=num/denum;
+        //System.out.println(num+" "+denum+" "+z);
+        res.append(String.valueOf(z));
+        long rem=(num%denum)*10;
+        
+        if(rem==0) return res.toString();
+        res.append(".");
+        
+        while(rem!=0){
+            if(hm.containsKey(rem)){
+                int i=hm.get(rem);
+                String part1=res.substring(0,i);
+                String part2=res.substring(i,res.length());
+                return part1+"("+part2+")";
+            }
+            
+            hm.put(rem,res.length());
+            long temp=rem/denum;
+            res.append(String.valueOf(temp));
+            rem=(rem%denum)*10;
+        }
+        return res.toString();
+    }
+}
