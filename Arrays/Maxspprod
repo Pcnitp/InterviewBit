@@ -1,0 +1,42 @@
+public class Solution {
+    public int maxSpecialProduct(int[] a) {
+        int n=a.length;
+        if(n<3) return 0;
+        
+        int[] max=new int[n];
+        max[0]=0;
+        for(int i=1;i<n;i++){
+            if(a[i-1]>a[i]) max[i]=i-1;
+            else{
+                int j=max[i-1];
+                while(j>0 && a[j]<=a[i]) j=max[j];
+                max[i]=j;
+            }
+            //System.out.print(max[i]+" ");
+        }
+        //System.out.println();
+        int[] min=new int[n];
+        min[n-1]=0;
+        for(int i=n-2;i>-1;i--){
+            if(a[i+1]>a[i]) min[i]=n-i-1;
+            else{
+                int j=min[i+1];
+                while(j>0 && a[n-j]<=a[i]) j=min[n-j];
+                min[i]=j;
+            }
+            //System.out.print(min[i]+" ");
+        }
+        //System.out.println();
+        long ans=0;
+        long m=1000000007;
+        for(int i=0;i<n;i++){
+            //System.out.println(max[i]+" "+min[i]);
+            long y=max[i];
+            long z=((n-min[i])%n);
+            long x=y*z;
+            ans=Math.max(ans,x);
+        }
+        
+        return (int)(ans%m);
+    }
+}
