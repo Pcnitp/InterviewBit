@@ -1,0 +1,32 @@
+public class Solution {
+    // DO NOT MODIFY THE ARGUMENTS WITH "final" PREFIX. IT IS READ ONLY
+    
+    public boolean check(final int[] gas, final int[] cost, int in){
+        int n=gas.length;
+        int prev=0;
+        for(int i=0;i<n;i++){
+            int x=(in+i)%n;
+            if(prev<0) return false;
+            prev+=gas[x]-cost[x];
+            //System.out.println(prev);
+        }
+        if(prev<0) return false;
+        return true;
+    }
+    
+    public int canCompleteCircuit(final int[] gas, final int[] cost) {
+        int n=gas.length;
+        if(n<2) return 0;
+        int prev=0;
+        if(check(gas,cost,0)) return 0;
+        for(int i=0;i<n;i++){
+            if(prev<0){
+                boolean f=check(gas,cost,i);
+                if(f) return i;
+                prev=0;
+            }
+            prev+=gas[i]-cost[i];
+        }
+        return -1;
+    }
+}
