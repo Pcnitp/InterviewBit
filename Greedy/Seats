@@ -1,0 +1,27 @@
+public class Solution {
+    
+    public int seats(String s) {
+        ArrayList<Integer> ar=new ArrayList<>();
+        int n=s.length();
+        for(int i=0;i<n;i++)
+            if(s.charAt(i)=='x') ar.add(i);
+        
+        n=ar.size();
+        int mid=n/2, k=1;
+        int m=10000003;
+        int ans=0;
+        
+        for(int i=mid-1;i>=0;i--){
+            ans=(ans+ar.get(mid)-ar.get(i)-k)%m;
+            k++;
+        }
+        
+        k=1;
+        for(int i=mid+1;i<n;i++){
+            ans=(ans+ar.get(i)-ar.get(mid)-k)%m;
+            k++;
+        }
+        
+        return ans%m;
+    }
+}
