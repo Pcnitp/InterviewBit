@@ -1,0 +1,51 @@
+public class Solution {
+    
+    public class Edge{
+        int v1,v2,wt;
+        Edge(int a, int b, int c){
+            v1=a;
+            v2=b;
+            wt=c;
+        }
+    }
+    
+    public class SortBy implements Comparator<Edge>{
+        public int compare(Edge a, Edge b){
+            return a.wt-b.wt;
+        }
+    }
+    
+    public int solve(int n, int[][] a) {
+        ArrayList<Edge> ar=new ArrayList<>();
+        for(int i=0;i<a.length;i++)
+            ar.add(new Edge(a[i][0]-1,a[i][1]-1,a[i][2]));
+        
+        Collections.sort(ar,new SortBy());
+        int[] parent=new int[n];
+        for(int i=0;i<n;i++)
+            parent[i]=i;
+            
+        int count=0;
+        int cost=0;
+        int m=ar.size();
+        
+        for(int i=0;i<m;i++){
+            if(count==n-1) break;
+            int p1=parent[ar.get(i).v1];
+            int p2=parent[ar.get(i).v2];
+            
+            while(parent[p1]!=p1)
+                p1=parent[p1];
+            while(parent[p2]!=p2)
+                p2=parent[p2];
+                
+            if(p1!=p2){
+                parent[p2]=p1;
+                count++;
+                cost+=ar.get(i).wt;
+            }
+        }
+        
+        return cost;
+    }
+}
