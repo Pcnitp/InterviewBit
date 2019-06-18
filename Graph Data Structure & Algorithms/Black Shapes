@@ -1,0 +1,35 @@
+public class Solution {
+    
+    public void mark(String[] a, int i, int j, boolean[][] vis){
+        int r=a.length;
+        int c=a[0].length();
+        
+        if(i<0||i==r||j<0||j==c|| vis[i][j]) return;
+        if(a[i].charAt(j)=='O') return;
+        vis[i][j]=true;
+        
+        mark(a,i+1,j,vis);
+        mark(a,i-1,j,vis);
+        mark(a,i,j+1,vis);
+        mark(a,i,j-1,vis);
+    }
+    
+    public int black(String[] a) {
+        int r=a.length;
+        if(r==0) return 0;
+        int c=a[0].length();
+        
+        boolean[][] vis=new boolean[r][c];
+        int count=0;
+        for(int i=0;i<r;i++){
+            for(int j=0;j<c;j++){
+                if((!vis[i][j])&&a[i].charAt(j)=='X'){
+                    count++;
+                    mark(a,i,j,vis);
+                }
+            }
+        }
+        
+        return count;
+    }
+}
