@@ -1,0 +1,33 @@
+public class Solution {
+    
+    public boolean dfs(ArrayList<ArrayList<Integer>> a, int in, boolean[] vis, boolean[] onpath){
+        if(vis[in]) return false;;
+        vis[in]=true;
+        onpath[in]=true;
+        
+        int n=a.get(in).size();
+        for(int i=0;i<n;i++){
+            int x=a.get(in).get(i);
+            if(onpath[x]||dfs(a,x,vis,onpath)) return true;
+        }
+        
+        onpath[in]=false;
+        return false;
+    }
+    
+    public int solve(int n, int[] B, int[] C) {
+        ArrayList<ArrayList<Integer>> a=new ArrayList<>();
+        for(int i=0;i<n;i++)
+            a.add(new ArrayList<Integer>());
+            
+        for(int i=0;i<B.length;i++)
+            a.get(B[i]-1).add(C[i]-1);
+            
+        boolean[] vis=new boolean[n];
+        boolean[] onpath=new boolean[n];
+        
+        for(int i=0;i<n;i++)
+            if(!vis[i] && dfs(a,i,vis,onpath)) return 0;
+        return 1;
+    }
+}
