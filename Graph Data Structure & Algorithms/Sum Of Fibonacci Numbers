@@ -1,0 +1,27 @@
+public class Solution {
+    public int fibsum(int n) {
+        ArrayList<Integer> fibo=new ArrayList<Integer>();
+        int x=1,y=1;
+        fibo.add(x);
+        fibo.add(y);
+        while(x+y<=n){
+            int z=x+y;
+            x=y;
+            y=z;
+            fibo.add(z);
+        }
+        
+        int m=fibo.size();
+        if(fibo.get(m-1)==n) return 1;
+        int count=0;
+        
+        for(int i=m-1;i>=0&&n>0;i--){
+            int a=fibo.get(i);
+            int b=n/a;
+            n=n-a*b;
+            count+=b;
+        }
+        
+        return count;
+    }
+}
