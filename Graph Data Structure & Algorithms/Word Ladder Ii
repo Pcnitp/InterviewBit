@@ -1,0 +1,86 @@
+public class Solution {
+    
+    ArrayList<ArrayList<String>> ans;
+    
+    public class Pair{
+        String s;
+        int in;
+        Pair(String r, int x){
+            s=r;
+            in=x;
+        }
+    }
+    
+    public int check(String a, String b){
+        int n=a.length();
+        if(b.length()!=n) return -1;
+        
+        int count=0, j=-1;
+        for(int i=0;i<n;i++){
+            if(a.charAt(i)!=b.charAt(i)){ 
+                count++;
+                j=i;
+            }
+            if(count==2) return -1;
+        }
+        
+        if(count==1) return j;
+        return -1;
+    }
+    
+    public void solve(String start, String end, ArrayList<String> dict,ArrayList<String> ar, boolean[] vis ){
+        if(start.equals(end)){ 
+            ArrayList<String> ar1=new ArrayList<String>();
+            for(String s:ar) ar1.add(s);
+            //ar1.add(start);
+            if(!ans.contains(ar1)) ans.add(ar1);
+        }
+        
+        ArrayList<Pair> b=new ArrayList<>();
+        for(int i=0;i<dict.size();i++){
+            if(vis[i]) continue;
+            int j=check(start,dict.get(i));
+            if(j==-1) continue;
+            b.add(new Pair(dict.get(i),j));
+            vis[i]=true;
+        }
+        
+        for(int i=0;i<b.size();i++){
+            ArrayList<String> ar1=new ArrayList<String>();
+            for(String s:ar) ar1.add(s);
+            boolean[] vis1=new boolean[dict.size()];
+            for(int k=0;k<dict.size();k++)
+                if(vis[k]) vis1[k]=true;
+                
+            Pair p=b.get(i);
+            int j=p.in;
+            String r=start.substring(0,j)+p.s.charAt(j)+start.substring(j+1);
+            ar1.add(r);
+            solve(r,end,dict,ar1,vis1);
+        }
+    }
+    
+    public ArrayList<ArrayList<String>> findLadders(String start, String end, ArrayList<String> dict) {
+        ans=new ArrayList<ArrayList<String>>();
+        int n=dict.size();
+        boolean[] vis=new boolean[n];
+        int x=Collections.binarySearch(dict,start);
+        if(x>=0) vis[x]=true;
+        
+        ArrayList<String> ar=new ArrayList<String>();
+        ar.add(start);
+        solve(start,end,dict,ar,vis);
+        
+        int min=Integer.MAX_VALUE;
+        for(ArrayList<String> b: ans)
+            min=Math.min(min,b.size());
+            
+        for(int i=0;i<ans.size();i++){
+            if(ans.get(i).size()==min) continue;
+            ans.remove(i);
+            i--;
+        }
+        return ans;
+        
+    }
+}
