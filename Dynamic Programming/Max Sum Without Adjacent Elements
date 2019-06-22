@@ -1,0 +1,36 @@
+public class Solution {
+    
+    // public int solve(int[][] a, int in,int[] dp){
+    //     int n=a[0].length;
+    //     if(in>=n) return 0;
+    //     if(dp[in]!=-1) return dp[in];
+        
+    //     int x=solve(a,in+1,dp);
+    //     int y=solve(a,in+2,dp)+Math.max(a[0][in],a[1][in]);
+    //     dp[in]= Math.max(x,y);
+    //     return dp[in];
+    // }
+    
+    public int adjacent(int[][] a) {
+        int n=a[0].length;
+        int[] dp=new int[n];
+        // Arrays.fill(dp,-1);
+        // int ans=solve(a,0,dp);
+        // return ans;
+        
+        if(n==0) return 0;
+        if(n==1) return Math.max(a[0][0],a[1][0]);
+        
+        dp[0]=Math.max(a[0][0],a[1][0]);
+        dp[1]=Math.max(a[0][1],a[1][1]);
+        dp[1]=Math.max(dp[0],dp[1]);
+        
+        for(int i=2;i<n;i++){
+            dp[i]=Math.max(a[0][i],a[1][i]);
+            dp[i]+=dp[i-2];
+            dp[i]=Math.max(dp[i],dp[i-1]);
+        }
+        
+        return dp[n-1];
+    }
+}
