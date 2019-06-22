@@ -1,0 +1,38 @@
+public class Solution {
+    
+    // public int solve(int[] a, int in, int k,int[][] dp){
+    //     int n=a.length;
+    //     int m=1000007;
+    //     if(k==0) return 1;
+    //     if(in==n||k<0) return 0;
+    //     if(dp[in][k]!=-1) return dp[in][k];
+        
+    //     int x=solve(a,in+1,k,dp);
+    //     int y=solve(a,in,k-a[in],dp);
+        
+    //     int ans=(x%m + y%m)%m;
+    //     dp[in][k]=ans;
+    //     return ans;
+    // }
+    
+    public int coinchange2(int[] a, int k) {
+        int n=a.length;
+        if(n==0||k==0) return 0;
+        // int[][] dp=new int[n][k+1];
+        // for(int i=0;i<n;i++)
+        //     Arrays.fill(dp[i],-1);
+            
+        // int ans=solve(a,0,k,dp);
+        // return ans;
+        
+        int[] dp=new int[k+1];
+        int m=1000007;
+        dp[0]=1;
+        
+        for(int i=0;i<n;i++)
+            for(int j=a[i];j<=k;j++)
+                dp[j]=(dp[j]+dp[j-a[i]])%m;
+        
+        return dp[k];
+    }
+}
