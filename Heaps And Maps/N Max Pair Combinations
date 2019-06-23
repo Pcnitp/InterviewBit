@@ -1,0 +1,46 @@
+public class Solution {
+    public class Pair{
+        int sum, in1, in2;
+        Pair(int a, int b, int c){
+            sum=a;
+            in1=b;
+            in2=c;
+        }
+    }
+    
+    public int[] solve(int[] a, int[] b) {
+        int n=a.length;
+        Arrays.sort(a);
+        Arrays.sort(b);
+        int[] ans=new int[n];
+        
+        PriorityQueue<Pair> pq=new PriorityQueue<>(new Comparator<Pair>(){
+            public int compare(Pair p, Pair q){
+                return q.sum-p.sum;
+            }
+        });
+        
+        HashSet<String> hs=new HashSet<>();
+        pq.add(new Pair(a[n-1]+b[n-1],n-1,n-1));
+        hs.add(String.valueOf(n-1)+" "+String.valueOf(n-1));
+        
+        for(int i=0;i<n;i++){
+            Pair p=pq.poll();
+            ans[i]=p.sum;
+            if(i==n-1) break;
+            String s=String.valueOf(p.in1-1)+" "+String.valueOf(p.in2);
+            String r=String.valueOf(p.in1)+" "+String.valueOf(p.in2-1);
+            
+            if(!hs.contains(s)){
+                hs.add(s);
+                pq.add(new Pair(a[p.in1-1]+b[p.in2],p.in1-1,p.in2));
+            }
+            if(!hs.contains(r)){
+                hs.add(r);
+                pq.add(new Pair(a[p.in1]+b[p.in2-1],p.in1,p.in2-1));
+            }
+        }
+        
+        return ans;
+    }
+}
