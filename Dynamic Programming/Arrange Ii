@@ -1,0 +1,38 @@
+public class Solution {
+    
+    public int solve(String a, int in, int k, int[][] dp){
+        int n=a.length();
+        
+        if(k==1){
+            int w=0,b=0;
+            for(int i=in;i<n;i++){
+                if(a.charAt(i)=='W') w++;
+                else b++;
+            }
+            return w*b;
+        }
+        if(k==n-in) return 0;
+        
+        if(dp[in][k]!=-1) return dp[in][k];
+        
+        int ans=Integer.MAX_VALUE,w=0,b=0;
+        for(int i=in;i<n-k+1;i++){
+            if(a.charAt(i)=='W') w++;
+            else b++;
+            
+            ans=Math.min(ans, w*b +solve(a,i+1,k-1,dp));
+        }
+        dp[in][k]=ans;
+        return ans;
+    }
+    public int arrange(String a, int k) {
+        int n=a.length();
+        if(k>n) return -1;
+        int[][] dp=new int[n+1][k+1];
+        for(int i=0;i<=n;i++)
+            Arrays.fill(dp[i],-1);
+            
+        int ans =solve(a,0,k,dp);
+        return ans;
+    }
+}
