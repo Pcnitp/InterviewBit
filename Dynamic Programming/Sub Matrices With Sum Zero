@@ -1,0 +1,32 @@
+public class Solution {
+    public int solve(int[][] a) {
+        int r=a.length;
+        if(r==0) return 0;
+        int c=a[0].length;
+        
+        int[][] dp=new int[r+1][c+1];
+        for(int i=1;i<=r;i++)
+            for(int j=1;j<=c;j++)
+                dp[i][j]=a[i-1][j-1]+dp[i-1][j]+dp[i][j-1]-dp[i-1][j-1];
+               
+        int ans=0;
+        
+        for(int i=1;i<=r;i++){
+            for(int j=i;j<=r;j++){
+                HashMap<Integer,Integer> hm=new HashMap<>();
+                hm.put(0,1);
+                for(int k=1;k<=c;k++){
+                    int x=dp[j][k]-dp[i-1][k];
+                    if(hm.containsKey(x)){
+                        int y=hm.get(x);
+                        ans+=y;
+                        hm.put(x,y+1);
+                    }
+                    else hm.put(x,1);
+                }
+            }
+        }
+        
+        return ans;
+    }
+}
