@@ -1,0 +1,34 @@
+public class Solution {
+    ArrayList<String> ans;
+    
+    public void solve(String a, ArrayList<String> dict, int s, int e, String curr ){
+        //System.out.println(curr);
+        int n=a.length();
+        String r=a.substring(s,e);
+        if(e==n){
+            if(dict.contains(r)){
+                if(s==0) curr=r;
+                else 
+                    curr+=" "+r;
+                ans.add(curr);
+            }
+            return;
+        }
+        
+        
+        if(dict.contains(r)){
+            if(s==0)
+                solve(a,dict,e,e+1,r);
+            else solve(a,dict,e,e+1,curr+" "+r);
+        }
+        solve(a,dict,s,e+1,curr);
+    }
+    
+    public ArrayList<String> wordBreak(String s, ArrayList<String> dict) {
+        int n=s.length();
+        ans=new ArrayList<String>();
+            
+        solve(s,dict,0,1,"");
+        return ans;
+    }
+}
