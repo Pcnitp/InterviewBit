@@ -1,0 +1,66 @@
+public class Solution {
+    
+    public boolean check(int n){
+        while(n>0){
+            if(n%10==1||n%10==0) n=n/10;
+            else return false;
+        }
+        return true;
+    }
+    
+    public int mod(String s, int n){
+        int r=0;
+        int len=s.length();
+        for(int i=0;i<len;i++){
+            r=r*10+(int)(s.charAt(i)-'0');
+            r=r%n;
+        }
+        return r;
+    }
+    
+    public String multiple(int n) {
+        if(check(n)) return String.valueOf(n);
+        Queue<Integer> q=new LinkedList<>();
+        boolean[] vis=new boolean[n+1];
+        int[] val=new int[n+1];
+        int[] parent=new int[n+1];
+        Arrays.fill(val,-1);
+        Arrays.fill(parent,-1);
+        
+        q.add(1);
+        val[1]=1;
+        vis[1]=true;
+        
+        while(!q.isEmpty()){
+            int x=q.poll();
+            
+            if(x==0){
+                String s="";
+                while(x!=-1){
+                    s+=(char)(val[x]+'0');
+                    x=parent[x];
+                }
+                StringBuilder sb=new StringBuilder(s);
+                return sb.reverse().toString();
+            }
+            
+            int y=(x*10)%n;
+            int z=(x*10+1)%n;
+            
+            if(!vis[y]){
+                vis[y]=true;
+                parent[y]=x;
+                val[y]=0;
+                q.add(y);
+            }
+            
+            if(!vis[z]){
+                vis[z]=true;
+                parent[z]=x;
+                val[z]=1;
+                q.add(z);
+            }
+        }
+        return "";
+    }
+}
