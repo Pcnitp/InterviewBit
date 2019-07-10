@@ -1,0 +1,61 @@
+public class Solution {
+    
+    public class Pair{
+        int in,count;
+        Pair(int x, int y){
+            in=x;
+            count=y;
+        }
+    }
+    
+    public class SortBy implements Comparator<Pair>{
+        public int compare(Pair p, Pair q){
+            return q.count-p.count;
+        }
+    }
+    
+    public int[] solve(String g, String[] r) {
+        HashMap<String,Integer> hm=new HashMap<>();
+        int n=g.length();
+        int i=0;
+        while(i<n){
+            String x="";
+            while(i<n&&g.charAt(i)!='_'){
+                x+=g.charAt(i);
+                i++;
+            }
+            hm.put(x,i);
+            i++;
+        }
+        
+        n=r.length;
+        Pair[] ans=new Pair[n];
+        for(i=0;i<n;i++){
+            int count=0;
+            int m=r[i].length();
+            int j=0;
+            
+            while(j<m){
+                String x="";
+                while(j<m&&r[i].charAt(j)!='_'){
+                    x+=r[i].charAt(j);
+                    j++;
+                }
+                //System.out.print(x+" ");
+                if(hm.containsKey(x)) count++;
+                j++;
+            }
+            ans[i]=new Pair(i,count);
+        }
+        
+        Arrays.sort(ans,new SortBy());
+        
+        int[] res=new int[n];
+        for(i=0;i<n;i++){
+            //System.out.println(ans[i].in+" "+ans[i].count);
+            res[i]=ans[i].in;
+        }
+        
+        return res;
+    }
+}
