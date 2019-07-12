@@ -1,0 +1,53 @@
+public class Solution {
+    
+    public class Trie{
+        Trie[] child;
+        int freq;
+        Trie(){
+            freq=0;
+            child =new Trie[26];
+            for(int i=0;i<26;i++)
+                child[i]=null;
+        }
+    }
+    
+    public void insert(Trie root, String s, int in){
+        int n=s.length();
+        if(in==n) return;
+        int x=(int)(s.charAt(in)-'a');
+        
+        if(root.child[x]==null)
+            root.child[x]=new Trie();
+        
+        root.freq++;
+        insert(root.child[x],s,in+1);
+    }
+    
+    public String check(Trie root, String s, int in){
+        int n=s.length();
+        if(in==n) return "";
+        int x=(int)(s.charAt(in)-'a');
+        
+        int count=root.child[x].freq;
+        
+        if(count>1)
+            return s.charAt(in)+check(root.child[x],s,in+1);
+        else return ""+s.charAt(in);
+    }
+    
+    public String[] prefix(String[] a) {
+        int n=a.length;
+        Trie root=new Trie();
+        
+        for(int i=0;i<n;i++)
+            insert(root,a[i],0);
+        
+        String[] ans=new String[n];
+        for(int i=0;i<n;i++){
+            String pre=check(root,a[i],0);
+            ans[i]=pre;
+        }
+        
+        return ans;
+    }
+}
