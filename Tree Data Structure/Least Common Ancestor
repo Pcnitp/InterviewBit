@@ -1,0 +1,55 @@
+/**
+ * Definition for binary tree
+ * class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) {
+ *      val = x;
+ *      left=null;
+ *      right=null;
+ *     }
+ * }
+ */
+public class Solution {
+    
+    public boolean dfs(TreeNode root, int a){
+        if(root==null) return false;
+        if(root.val==a)
+            return true;
+        
+        boolean f=dfs(root.left, a);
+        if(f)
+            return true;
+        
+        f=dfs(root.right, a);
+        if(f)
+            return true;
+        
+        return false;
+    }
+    
+    public TreeNode solve(TreeNode root, int a, int b){
+        if(root==null) return null;
+        if(root.val==a||root.val==b) return root;
+        
+        TreeNode l=solve(root.left,a,b);
+        TreeNode r=solve(root.right,a,b);
+        
+        if(l!=null && r!=null) return root;
+        if(l!=null) return l;
+        else return r;
+    }
+    
+    public int lca(TreeNode root, int a, int b) {
+        boolean f=dfs(root,a);
+        if(!f) return -1;
+
+        f=dfs(root, b);
+        if(!f) return -1;
+        
+        TreeNode ans=solve(root,a,b);
+        if(ans==null) return -1;
+        return ans.val;
+    }
+}
